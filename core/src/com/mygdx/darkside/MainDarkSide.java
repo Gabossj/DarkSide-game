@@ -1,31 +1,26 @@
 package com.mygdx.darkside;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.darkside.pantallas.PantallaCarga;
+import com.mygdx.darkside.procesado.Renderizado;
 
-public class MainDarkSide extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
+public class MainDarkSide extends Game {
+
+	@Override 
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		Renderizado.app = this;
+		Renderizado.batch = new SpriteBatch();
+		this.setScreen(new PantallaCarga());
 	}
-
-	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	
+	@Override 
+	public void render () {	
+		super.render();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		Renderizado.batch.dispose();
 	}
 }
