@@ -1,25 +1,12 @@
 package com.mygdx.darkside.personajes;
 
-public class Jugador implements Personaje{
-
-	private int vida =300;
-	private int ataque = 50;
+public class Jugador extends Personaje{
 	
-	@Override
-	public int setVida() {
-		return vida;
+	public Jugador() {
+		this.nombre= "Juan";
+		this.vidaMax = 300;
+		this.vida = this.vidaMax;
+		this.ataque = 100;
 	}
-
-	@Override
-	public int setAtaque() {
-		return ataque;
-	}
-
-	@Override
-	public void mostrarDatos() {
-		System.out.println("Vida : "+vida + "\n Ataque : "+ataque);
-	}
-
-	
 
 }
