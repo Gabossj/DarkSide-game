@@ -3,7 +3,7 @@ package com.mygdx.darkside;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.darkside.pantallas.PantallaCarga;
-import com.mygdx.darkside.procesado.Renderizado;
+import com.mygdx.darkside.utilidades.Renderizado;
 
 public class MainDarkSide extends Game {
 
