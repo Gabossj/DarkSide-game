@@ -18,9 +18,9 @@ public class Imagen {
     }
 
     public void setTransparencia(float transparencia) {
-        s.setAlpha(transparencia); // -> Dimensiona la transparencia
+        s.setAlpha(transparencia);
     }
-
+    
     public void setSize(int ancho, int alto) {
         s.setSize(ancho, alto);
     }
@@ -29,8 +29,32 @@ public class Imagen {
         s.setPosition(x, y);
     }
     
-    public int getY() {
-    	return (int) s.getY();
+    public void setBounds(int x, int y, int width, int height) {
+    	s.setBounds(x, y, width, height);
+    }
+    
+    public float getX() {
+    	return s.getX();
+    }
+    
+    public float getY() {
+    	return s.getY();
+    }
+    
+    public void setX(float x) {
+    	s.setX(x);
+    }
+    
+    public void setY(float y) {
+    	s.setY(y);
+    }
+    
+    public float getAlto() {
+    	return s.getHeight();
+    }
+    
+    public float getAncho() {
+    	return s.getWidth();
     }
     
 

@@ -1,6 +1,7 @@
 package com.mygdx.darkside.pantallas;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,14 +11,15 @@ import com.mygdx.darkside.utilidades.Imagen;
 import com.mygdx.darkside.utilidades.Recursos;
 import com.mygdx.darkside.utilidades.Renderizado;
 
-public class PantallaCarga implements Screen {
+public class PantallaMenu implements Screen {
 
 	private Imagen fondo;
 	private Imagen arboles;
 	private BitmapFont fuente, DarkSide;
-	private String textos[] = { "Iniciar Partida...", "Salir..." , "DarkSide"};
+	private String textos[] = { "Click para iniciar Partida", "Salir..." , "DarkSide"};
 	private FreeTypeFontGenerator generador1,generador2;
 	private FreeTypeFontParameter parametros1,parametros2;
+	
 
 	private boolean TransparenciaInTerminado = false;
 	private boolean mostrarTexto = false;
@@ -43,23 +45,31 @@ public class PantallaCarga implements Screen {
 		fondo.setTransparencia(0);
 		arboles.setSize(Recursos.anchoPantalla, Recursos.altoPantalla);
 		arboles.setTransparencia(0);
-
+		
+	
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) { 
 		Renderizado.limpiarPantalla();
 
 		Renderizado.batch.begin();
 		fondo.dibujarImagen();
 		arboles.dibujarImagen();
 		procesarTransparencia();
+		
+		
 		if (mostrarTexto) {
 			fuente.draw(Renderizado.batch, textos[0], Recursos.anchoPantalla / 3, (Recursos.altoPantalla / 2) -60);
 			fuente.draw(Renderizado.batch, textos[1], Recursos.anchoPantalla / 3, (Recursos.altoPantalla / 2) - 120);
 			DarkSide.draw(Renderizado.batch, textos[2], Recursos.anchoPantalla / 12, (Recursos.altoPantalla ) - 160);
+			if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+				Renderizado.game.setScreen(new PantallaJuego());
+			}
 		}
 		Renderizado.batch.end();
+		
+		
 	}
 
 	//Función que se encarga de dejar esteticamente mas bonito la carga en el menu
