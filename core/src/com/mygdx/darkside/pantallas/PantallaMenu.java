@@ -11,7 +11,7 @@ import com.mygdx.darkside.utilidades.Imagen;
 import com.mygdx.darkside.utilidades.Recursos;
 import com.mygdx.darkside.utilidades.Renderizado;
 
-public class PantallaMenu implements Screen {
+public class PantallaMenu implements Screen, Transparencias {
 
 	private Imagen fondo;
 	private Imagen arboles;
@@ -21,7 +21,7 @@ public class PantallaMenu implements Screen {
 	private FreeTypeFontParameter parametros1,parametros2;
 	
 
-	private boolean TransparenciaInTerminado = false;
+	private boolean TransparenciaTerminada = false;
 	private boolean mostrarTexto = false;
 	private float transparencia = 0;
 	private float contTiempo = 0;
@@ -61,7 +61,7 @@ public class PantallaMenu implements Screen {
 		
 		if (mostrarTexto) {
 			fuente.draw(Renderizado.batch, textos[0], Recursos.anchoPantalla / 3, (Recursos.altoPantalla / 2) -60);
-			fuente.draw(Renderizado.batch, textos[1], Recursos.anchoPantalla / 3, (Recursos.altoPantalla / 2) - 120);
+			//fuente.draw(Renderizado.batch, textos[1], Recursos.anchoPantalla / 3, (Recursos.altoPantalla / 2) - 120);
 			DarkSide.draw(Renderizado.batch, textos[2], Recursos.anchoPantalla / 12, (Recursos.altoPantalla ) - 160);
 			if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
 				Renderizado.game.setScreen(new PantallaJuego());
@@ -73,12 +73,13 @@ public class PantallaMenu implements Screen {
 	}
 
 	//Función que se encarga de dejar esteticamente mas bonito la carga en el menu
+	@Override
 	public void procesarTransparencia() {
-		if (!TransparenciaInTerminado) {
+		if (!TransparenciaTerminada) {
 			transparencia += 0.006f;
 			if (transparencia > 1) {
 				transparencia = 1;
-				TransparenciaInTerminado = true;
+				TransparenciaTerminada = true;
 			}
 		} else if (!mostrarTexto) {
 			contTiempo += 0.02f;

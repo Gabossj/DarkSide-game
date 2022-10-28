@@ -2,6 +2,7 @@ package com.mygdx.darkside.utilidades;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Imagen {
 
@@ -57,5 +58,8 @@ public class Imagen {
     	return s.getWidth();
     }
     
+    public Rectangle getBoundingRectangle() {
+    	return s.getBoundingRectangle();
+    }
 
 }
