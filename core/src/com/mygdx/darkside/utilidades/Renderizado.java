@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Renderizado {
 
 	public static SpriteBatch batch;
-	public static MainDarkSide app;
+	public static MainDarkSide game;
 	
 	public static void limpiarPantalla() {
 		ScreenUtils.clear(0,0,0,0);
