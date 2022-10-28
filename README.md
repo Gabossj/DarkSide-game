@@ -1,2 +1,2 @@
 # DarkSide-game
-juego poo xd
+Videojuego para el ramo programación avanzada
