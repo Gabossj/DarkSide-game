@@ -63,5 +63,5 @@ public abstract class Personaje {
 	}
 	
 	
-
+	public abstract float recibeDaño(float vida,float daño);
 }

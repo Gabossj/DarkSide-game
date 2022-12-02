@@ -34,12 +34,17 @@ public class Jugador extends Personaje implements Colision{
 		return jugador;
 	}
 	
-	public boolean comprobarColision(Personaje pj) {
-		if (sprite.getBoundingRectangle().overlaps(pj.getSprite().getArea())) { // Se destruyen ambos	
+	public boolean comprobarColision(Personaje enemigo) {
+		if (sprite.getBoundingRectangle().overlaps(enemigo.getSprite().getArea())) { // Se destruyen ambos	
 			return true;
 		}
 		return false;
 	}
+	
+	public float recibeDaño(float vida, float daño) {
+		return vida-daño;
+	}
+	
 
 }
 

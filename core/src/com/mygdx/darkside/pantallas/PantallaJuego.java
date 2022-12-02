@@ -130,6 +130,7 @@ public class PantallaJuego implements Screen {
 				enemigos.get(i).getSprite().setX(enemigos.get(i).getSprite().getX() + 180 * Gdx.graphics.getDeltaTime());
 			}
 			if (pj.comprobarColision(enemigos.get(i))) {
+				
 				Renderizado.game.setScreen(new PantallaGameOver());
 			}
 				
@@ -144,7 +145,8 @@ public class PantallaJuego implements Screen {
 			for (int j = 0; j < enemigos.size(); j++) {
 				if (enemigos.get(j).getVida() >  0) {
 					if (b.comprobarColision(enemigos.get(j))) {
-						enemigos.get(j).setVida(enemigos.get(j).getVida() - pj.getAtaque());  
+						//enemigos.get(j).setVida(enemigos.get(j).getVida() - pj.getAtaque()); 
+						enemigos.get(j).setVida(enemigos.get(i).recibeDaño(enemigos.get(j).getVida(), pj.getAtaque()));
 					}
 				}else if (enemigos.get(j).getVida()<= 0 ) enemigos.remove(j);
 				

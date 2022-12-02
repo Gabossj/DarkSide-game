@@ -16,5 +16,7 @@ public class Enemigo extends Personaje{
 		this.sprite=spr;
 	}
 	
-	
+	public float recibeDaño(float vida, float daño) {
+		return vida-daño;
+	}
 }
