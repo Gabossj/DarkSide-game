@@ -1,5 +1,7 @@
 package com.mygdx.darkside.balas;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.mygdx.darkside.personajes.Personaje;
 import com.mygdx.darkside.utilidades.Imagen;
 import com.mygdx.darkside.utilidades.Recursos;
@@ -9,15 +11,17 @@ public class Bala {
 	private float ySpeed;
 	private boolean destruido = false;
 	private Imagen sprBala;
-	private boolean direccionBala; // true -> derecha; false -> izquierda
-
+	private boolean direccionBala;// true -> derecha; false -> izquierda
+	private Sound sonidoBala;
+	
 	public Bala(float x, float y, boolean sentido) {
 		sprBala = new Imagen("Balas/bala.png");
 		this.xSpeed = 20;
 		this.ySpeed = 0;
-		sprBala.setSize(120, 30);
+		this.sonidoBala= Gdx.audio.newSound(Gdx.files.internal("Balas/flaunch.wav"));
+		sprBala.setSize(70, 30);
 		sprBala.setPosition(x, y);
-		if(!sentido) sprBala.rotarImagen(true);
+		if(!sentido) sprBala.rotarImagen();
 		this.direccionBala = sentido;
 	}
 
@@ -64,6 +68,10 @@ public class Bala {
 
 	public boolean seDestruyo() {
 		return this.destruido;
+	}
+	
+	public Sound getSonidoBala() {
+		return sonidoBala;
 	}
 
 }

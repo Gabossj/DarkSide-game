@@ -9,9 +9,9 @@ public class Jugador extends Personaje{
 	
 	public Jugador() {
 		this.nombre= "Juan";
-		this.vidaMax = 300;
+		this.vidaMax = 10;
 		this.vida = this.vidaMax;
-		this.ataque = 100;
+		this.ataque = 10;
 		spr.setBounds(85,100,133,150);
 		this.sprite=spr;
 		this.bala=bullet;

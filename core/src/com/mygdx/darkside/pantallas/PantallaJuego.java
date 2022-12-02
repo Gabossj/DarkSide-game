@@ -1,6 +1,8 @@
 package com.mygdx.darkside.pantallas;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,32 +22,41 @@ import com.mygdx.darkside.utilidades.Renderizado;
 public class PantallaJuego implements Screen {
 
 	private Imagen background;
-	private Imagen marcoPj; private Imagen corazones;
-	private Personaje pj, pj2;
-	//private ShapeRenderer formaJugador,formaEnemigo;
+	private Imagen marcoPj;
+	private Imagen corazones;
+	private Personaje pj;
+	// private ShapeRenderer formaJugador,formaEnemigo;
 	private ArrayList<Bala> balas = new ArrayList<>();
-	private boolean vaporeonVivo= true;
-	private boolean izquierda = false; private boolean derecha= true;
-	
+	private ArrayList<Personaje> enemigos = new ArrayList<>();
+	private int cantidadEnemigos = 15;
+	private boolean izquierda = false;
+	private boolean derecha = true;
+	// private int x,y;
+
 	@Override
 	public void show() {
 		// Fondo
 		background = new Imagen("BackGrounds/fondo1.png");
 		background.setSize(Recursos.anchoPantalla, Recursos.altoPantalla);
-		
+
 		marcoPj = new Imagen("BackGrounds/marco.png");
 		marcoPj.setBounds(30, 550, 150, 150);
-		
-		corazones= new Imagen("BackGrounds/corazones.png");
-		corazones.setBounds(195, 570, 100, 100);
-		
-		//Rectangulo
-		//formaJugador = new ShapeRenderer();
-		//formaEnemigo = new ShapeRenderer();
+
+		corazones = new Imagen("BackGrounds/corazon.png");
+		corazones.setBounds(205, 590, 60, 60);
+
+		// Rectangulo
+		// formaJugador = new ShapeRenderer();
+		// formaEnemigo = new ShapeRenderer();
 
 		// Personajes
 		pj = new Jugador();
-		pj2 = new Enemigo();
+//		pj2 = new Enemigo(1050);
+
+		for (int i = 0; i < cantidadEnemigos; i++) {
+			Personaje enemigo = new Enemigo(1000 + (i*200));
+			enemigos.add(enemigo);
+		}
 	}
 
 	@Override
@@ -53,90 +64,105 @@ public class PantallaJuego implements Screen {
 		Renderizado.limpiarPantalla();
 
 		Renderizado.batch.begin();
-			background.dibujarImagen();
-			marcoPj.dibujarImagen();
-			corazones.dibujarImagen();
-			pj.getSprite().dibujarImagen();
-			
-			if (vaporeonVivo) pj2.getSprite().dibujarImagen();
-			
-			   //Movimiento en X
-			   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-				   //Girar la imagen
-				   if (!izquierda) {
-					   izquierda=true; derecha=false;
-					   pj.getSprite().rotarImagen(izquierda);
-				   }
-				   pj.getSprite().setX(pj.getSprite().getX() - 500 * Gdx.graphics.getDeltaTime());
-			   }
-			   
-			   
-			   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-				   //Girar la imagen 
-				   if (!derecha) {
-					   derecha=true; izquierda=false;
-					   pj.getSprite().rotarImagen(derecha);
-				   }
-				   pj.getSprite().setX(pj.getSprite().getX() + 500 * Gdx.graphics.getDeltaTime());
-			   }
-			   //Movimiento en Y
-			   //if(Gdx.input.isKeyPressed(Input.Keys.UP)) pj.getSprite().setY(pj.getSprite().getY() + 500 * Gdx.graphics.getDeltaTime());
-			   //if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) pj.getSprite().setY(pj.getSprite().getY() - 500 * Gdx.graphics.getDeltaTime());
-			   
-			   //Crear bala
-			     if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) { 
-			    	//para apuntar a cada lado segun donde este mirando
-			    	 
-			    	if (derecha) {
-			        Bala bala = new Bala(pj.getSprite().getAncho()+pj.getSprite().getX()-15,(pj.getSprite().getAlto())/3+pj.getSprite().getY(),true);
-				    balas.add(bala);
-			    	}
-			    	if (izquierda) {
-			    	Bala bala = new Bala(pj.getSprite().getX()-pj.getSprite().getAncho()+15,(pj.getSprite().getAlto())/3+pj.getSprite().getY(),false);
-					 balas.add(bala);	
-			    	}
-			    	
-			     }
-			     
-			//Movimiento de las balas    
-			for (int i = 0; i < balas.size(); i++) {     
-			     Bala b = balas.get(i);
-			     
-			     //Dispara segun donde mire
-			     b.moverBala();
-			     
-			     if(vaporeonVivo) {
-			    	 if(b.comprobarColision(pj2)) {
-			    		 vaporeonVivo=false;
-			     	}
-			     }
-			     
-			     if (b.seDestruyo()) balas.remove(b);
+		background.dibujarImagen();
+		marcoPj.dibujarImagen();
+		corazones.dibujarImagen();
+		pj.getSprite().dibujarImagen();
+
+		for (Personaje e : enemigos) {
+			if (e.getVida() > 0)
+			e.getSprite().dibujarImagen();
+		}
+
+
+		// Movimiento en X
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			// Girar la imagen
+			if (!izquierda) {
+				izquierda = true;
+				derecha = false;
+				pj.getSprite().rotarImagen();
 			}
-			
-			//Dibujo de las balas
-			for (Bala b : balas) {
-				b.dibujar();
+			pj.getSprite().setX(pj.getSprite().getX() - 500 * Gdx.graphics.getDeltaTime());
+		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			// Girar la imagen
+			if (!derecha) {
+				derecha = true;
+				izquierda = false;
+				pj.getSprite().rotarImagen();
 			}
-					
+			pj.getSprite().setX(pj.getSprite().getX() + 500 * Gdx.graphics.getDeltaTime());
+		}
+
+		// Crear bala
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			// para apuntar a cada lado segun donde este mirando
+			if (derecha) {
+				Bala bala = new Bala(pj.getSprite().getAncho() + pj.getSprite().getX() - 15,
+						(pj.getSprite().getAlto()) / 3 + pj.getSprite().getY(), true);
+				balas.add(bala);
+				bala.getSonidoBala().play();
+			}
+			if (izquierda) {
+				Bala bala = new Bala(pj.getSprite().getX() - pj.getSprite().getAncho() + 15,
+						(pj.getSprite().getAlto()) / 3 + pj.getSprite().getY(), false);
+				balas.add(bala);
+				bala.getSonidoBala().play();
+			}
+
+		}
+
+		// Movimiento Enemigo
+
+		for (int i = 0; i < enemigos.size(); i++) {
+			if (pj.getSprite().getX() < enemigos.get(i).getSprite().getX()) {
+				enemigos.get(i).getSprite().setX(enemigos.get(i).getSprite().getX() - 180 * Gdx.graphics.getDeltaTime());
+			} else if (pj.getSprite().getX() > (enemigos.get(i).getSprite().getX())) {
+				enemigos.get(i).getSprite().setX(enemigos.get(i).getSprite().getX() + 180 * Gdx.graphics.getDeltaTime());
+			}
+			if (pj.comprobarColision(enemigos.get(i))) {
+				Renderizado.game.setScreen(new PantallaGameOver());
+			}
+				
+		}
+
+		// Movimiento de las balas
+		for (int i = 0; i < balas.size(); i++) {
+			Bala b = balas.get(i);
+
+			// Dispara segun donde mire
+			b.moverBala();
+			for (int j = 0; j < enemigos.size(); j++) {
+				if (enemigos.get(j).getVida() >  0) {
+					if (b.comprobarColision(enemigos.get(j))) {
+						enemigos.get(j).setVida(enemigos.get(j).getVida() - pj.getAtaque());  
+					}
+				}else if (enemigos.get(j).getVida()<= 0 ) enemigos.remove(j);
+				
+			}
+
+			if (b.seDestruyo())
+				balas.remove(b);
+		}
+
+		// Dibujo de las balas
+		for (Bala b : balas) {
+			b.dibujar();
+		}
+
 		Renderizado.batch.end();
-		  
-		/*
-		formaJugador.begin(ShapeType.Line);
-			formaJugador.setColor(Color.YELLOW);
-			formaJugador.rect(pj.getSprite().getX(),pj.getSprite().getY(),pj.getSprite().getAncho(),pj.getSprite().getAlto());		
-		formaJugador.end();
-		/*
-		
-		/*
-		if (vaporeonVivo) {
-		formaEnemigo.begin(ShapeType.Line);
-			formaEnemigo.setColor(Color.YELLOW);
-			formaEnemigo.rect(pj2.getSprite().getX(),pj2.getSprite().getY(),pj2.getSprite().getAncho(),pj2.getSprite().getAlto());	
-		formaEnemigo.end();
-		}	
-		*/
-		
+
+		/*//Para dibujar el rectangulo del area del personaje
+		 * formaJugador.begin(ShapeType.Line); formaJugador.setColor(Color.YELLOW);
+		 * formaJugador.rect(pj.getSprite().getX(),pj.getSprite().getY(),pj.getSprite().
+		 * getAncho(),pj.getSprite().getAlto()); formaJugador.end(); /*
+		 * 
+		 * /* if (vaporeonVivo) { formaEnemigo.begin(ShapeType.Line);
+		 * formaEnemigo.setColor(Color.YELLOW);
+		 * formaEnemigo.rect(pj2.getSprite().getX(),pj2.getSprite().getY(),pj2.getSprite
+		 * ().getAncho(),pj2.getSprite().getAlto()); formaEnemigo.end(); }
+		 */
+
 	}
 
 	@Override

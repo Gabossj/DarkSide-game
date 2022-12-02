@@ -18,8 +18,8 @@ public class Imagen {
         s.draw(Renderizado.batch);
     }
 
-	public void rotarImagen(boolean mueve) {
-		s.flip(mueve, false);
+	public void rotarImagen() {
+		s.flip(true, false);
 	}
 	
     public void setTransparencia(float transparencia) {

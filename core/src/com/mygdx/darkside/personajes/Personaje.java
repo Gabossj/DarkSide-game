@@ -61,5 +61,12 @@ public abstract class Personaje {
 	public void setBala() {
 		this.bala=bala;
 	}
+	
+	public boolean comprobarColision(Personaje enemigo) {
+		if (sprite.getBoundingRectangle().overlaps(enemigo.getSprite().getArea())) { // Se destruyen ambos	
+			return true;
+		}
+		return false;
+	}
 
 }

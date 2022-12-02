@@ -4,14 +4,15 @@ import com.mygdx.darkside.utilidades.Imagen;
 
 public class Enemigo extends Personaje{
 	
-	private Imagen spr = new Imagen("Personajes/vaporeon.png");
+	private Imagen spr = new Imagen("Personajes/dinoEnemigo.png");
 	
-	public Enemigo() {
+	public Enemigo(int x) {
 		this.nombre= "Pedro";
-		this.vidaMax = 4500;
+		this.vidaMax = 30;
 		this.vida = this.vidaMax;
-		this.ataque = 60;
-		spr.setBounds(1050,100,133,150);
+		this.ataque = 10;
+		spr.setBounds(x,100,220,150);
+		//x=1050; 
 		this.sprite=spr;
 	}
 
