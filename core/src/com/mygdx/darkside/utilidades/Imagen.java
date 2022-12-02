@@ -25,7 +25,7 @@ public class Imagen {
         s.setSize(ancho, alto);
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(float x, float y) {
         s.setPosition(x, y);
     }
     

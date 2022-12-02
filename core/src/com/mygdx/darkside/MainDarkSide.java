@@ -12,7 +12,7 @@ public class MainDarkSide extends Game {
 	public void create () {
 		Renderizado.game = this;
 		Renderizado.batch = new SpriteBatch();
-		this.setScreen(new PantallaMenu());
+		this.setScreen(new PantallaJuego());
 	}
 	
 	@Override 
