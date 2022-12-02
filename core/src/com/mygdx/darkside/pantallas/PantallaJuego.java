@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.darkside.balas.Bala;
 import com.mygdx.darkside.personajes.Enemigo;
 import com.mygdx.darkside.personajes.Jugador;
@@ -21,7 +22,9 @@ public class PantallaJuego implements Screen {
 
 	private Imagen background;
 	private Imagen marcoPj; private Imagen corazones;
-	private Personaje pj, pj2;
+	private Personaje pj;
+	private static Enemigo pj2;
+	
 	//private ShapeRenderer formaJugador,formaEnemigo;
 	private ArrayList<Bala> balas = new ArrayList<>();
 	private boolean vaporeonVivo= true;
@@ -44,8 +47,13 @@ public class PantallaJuego implements Screen {
 		//formaEnemigo = new ShapeRenderer();
 
 		// Personajes
-		pj = new Jugador();
-		pj2 = new Enemigo();
+		
+		//Mantener instancia de creacion en contexto
+		pj = new Jugador(); 
+		
+		//Aplicacion patron singleton
+		pj2 = pj2.getEnemigo();
+
 	}
 
 	@Override
@@ -58,7 +66,14 @@ public class PantallaJuego implements Screen {
 			corazones.dibujarImagen();
 			pj.getSprite().dibujarImagen();
 			
-			if (vaporeonVivo) pj2.getSprite().dibujarImagen();
+			
+			for(int i=0; i<4; i++) {
+				
+
+				if (vaporeonVivo) pj2.getSprite().dibujarImagen2(pj2.getPosx());
+				
+			   
+			}
 			
 			   //Movimiento en X
 			   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -79,6 +94,14 @@ public class PantallaJuego implements Screen {
 				   }
 				   pj.getSprite().setX(pj.getSprite().getX() + 500 * Gdx.graphics.getDeltaTime());
 			   }
+			   
+			   //LIMITAR MOVIMIENTO EJE X
+			   if(pj.getSprite().getX()<=0) {
+				   pj.getSprite().setX(0);
+				}
+			   if(pj.getSprite().getX()>=1146) {
+				   pj.getSprite().setX(1146);
+			   }
 			   //Movimiento en Y
 			   //if(Gdx.input.isKeyPressed(Input.Keys.UP)) pj.getSprite().setY(pj.getSprite().getY() + 500 * Gdx.graphics.getDeltaTime());
 			   //if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) pj.getSprite().setY(pj.getSprite().getY() - 500 * Gdx.graphics.getDeltaTime());
@@ -88,6 +111,7 @@ public class PantallaJuego implements Screen {
 			    	//para apuntar a cada lado segun donde este mirando
 			    	 
 			    	if (derecha) {
+			    		
 			        Bala bala = new Bala(pj.getSprite().getAncho()+pj.getSprite().getX()-15,(pj.getSprite().getAlto())/3+pj.getSprite().getY(),true);
 				    balas.add(bala);
 			    	}

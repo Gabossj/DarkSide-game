@@ -17,6 +17,11 @@ public class Imagen {
 	public void dibujarImagen() {
         s.draw(Renderizado.batch);
     }
+	
+	public void dibujarImagen2(int x) {
+		s.setPosition(x,85);
+		s.draw(Renderizado.batch);
+	}
 
 	public void rotarImagen(boolean mueve) {
 		s.flip(mueve, false);

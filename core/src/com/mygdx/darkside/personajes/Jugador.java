@@ -15,6 +15,10 @@ public class Jugador extends Personaje{
 		spr.setBounds(85,100,133,150);
 		this.sprite=spr;
 		this.bala=bullet;
+		
+		this.posx=(0);
+
 	}
 
 }
+

@@ -10,9 +10,11 @@ public abstract class Personaje {
 	protected float ataque;
 	protected Imagen sprite;
 	protected Imagen bala;
+	protected int posx;
 
-	// No tendra constructor, ya que no sera necesario
-	// porque asignaremos los valores desde sus clases hijas
+	
+
+
 
 	public String getNombre() {
 		return nombre;
@@ -61,5 +63,16 @@ public abstract class Personaje {
 	public void setBala() {
 		this.bala=bala;
 	}
-
+	
+	
+	
+	public int getPosx() {
+		return posx;
+	}
+	
+	public void setPosx(int x) {
+		this.posx=x;
+	}
+	
+	
 }
