@@ -2,6 +2,7 @@ package com.mygdx.darkside.utilidades;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Imagen {
 
@@ -17,6 +18,10 @@ public class Imagen {
         s.draw(Renderizado.batch);
     }
 
+	public void rotarImagen(boolean mueve) {
+		s.flip(mueve, false);
+	}
+	
     public void setTransparencia(float transparencia) {
         s.setAlpha(transparencia);
     }
@@ -47,6 +52,7 @@ public class Imagen {
     
     public void setY(float y) {
     	s.setY(y);
+        s.getBoundingRectangle();
     }
     
     public float getAlto() {
@@ -57,5 +63,11 @@ public class Imagen {
     	return s.getWidth();
     }
     
-
+    public Rectangle getBoundingRectangle() {
+     return s.getBoundingRectangle();
+    }
+    
+    public Rectangle getArea() {
+    	return s.getBoundingRectangle();
+    }
 }

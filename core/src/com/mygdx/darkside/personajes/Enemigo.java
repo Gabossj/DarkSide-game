@@ -11,7 +11,7 @@ public class Enemigo extends Personaje{
 		this.vidaMax = 4500;
 		this.vida = this.vidaMax;
 		this.ataque = 60;
-		spr.setBounds(1050,401,133,150);
+		spr.setBounds(1050,100,133,150);
 		this.sprite=spr;
 	}
 

@@ -4,7 +4,7 @@ import com.mygdx.darkside.utilidades.Imagen;
 
 public class Jugador extends Personaje{
 	
-	private Imagen spr = new Imagen("Personajes/jolteon.png");
+	private Imagen spr = new Imagen("Personajes/dinoPipa.png");
 	private Imagen bullet = new Imagen("Balas/bala.png");
 	
 	public Jugador() {
@@ -12,7 +12,7 @@ public class Jugador extends Personaje{
 		this.vidaMax = 300;
 		this.vida = this.vidaMax;
 		this.ataque = 100;
-		spr.setBounds(85,290,133,150);
+		spr.setBounds(85,100,133,150);
 		this.sprite=spr;
 		this.bala=bullet;
 	}
