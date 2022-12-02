@@ -7,6 +7,10 @@ import com.mygdx.darkside.utilidades.Imagen;
 import com.mygdx.darkside.utilidades.Recursos;
 
 public class Bala {
+	
+	//private static Bala bala;
+	
+	
 	private float xSpeed;
 	private float ySpeed;
 	private boolean destruido = false;
@@ -24,6 +28,28 @@ public class Bala {
 		if(!sentido) sprBala.rotarImagen();
 		this.direccionBala = sentido;
 	}
+	
+	/*
+	private Bala(float x, float y, boolean sentido) {
+		sprBala = new Imagen("Balas/bala.png");
+		this.xSpeed = 20;
+		this.ySpeed = 0;
+		sprBala.setSize(120, 30);
+		sprBala.setPosition(x, y);
+		if(!sentido) sprBala.rotarImagen(true);
+		this.direccionBala = sentido;
+	}
+	
+	public synchronized static Bala getBala(float x, float y, boolean sentido) {
+		if(bala==null) {
+			bala = new Bala(x,y,sentido);
+		}
+		
+		return bala;
+	}*/
+	
+	
+	
 
 	// para cuando se sale de la pantalla, desaparece
 	public void moverBala() {
