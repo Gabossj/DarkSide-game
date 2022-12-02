@@ -17,10 +17,4 @@ public class Enemigo extends Personaje{
 	}
 	
 	
-	public boolean comprobarColision(Personaje enemigo) {
-		if (sprite.getBoundingRectangle().overlaps(enemigo.getSprite().getArea())) { // Se destruyen ambos	
-			return true;
-		}
-		return false;
-	}
 }

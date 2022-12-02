@@ -11,7 +11,7 @@ public class Jugador extends Personaje implements Colision{
 	private Imagen spr = new Imagen("Personajes/dinoPipa.png");
 	private Imagen bullet = new Imagen("Balas/bala.png");
 	
-	private int posx;
+	private static int posx;
 	private static Jugador jugador;
 	
 	private Jugador() {
