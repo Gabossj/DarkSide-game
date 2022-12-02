@@ -24,14 +24,14 @@ public class PantallaJuego implements Screen {
 	private Imagen background;
 	private Imagen marcoPj;
 	private Imagen corazones;
-	private Personaje pj;
-	// private ShapeRenderer formaJugador,formaEnemigo;
+	private Jugador pj;
+	
 	private ArrayList<Bala> balas = new ArrayList<>();
 	private ArrayList<Personaje> enemigos = new ArrayList<>();
 	private int cantidadEnemigos = 15;
 	private boolean izquierda = false;
 	private boolean derecha = true;
-	// private int x,y;
+
 
 	@Override
 	public void show() {
@@ -45,13 +45,11 @@ public class PantallaJuego implements Screen {
 		corazones = new Imagen("BackGrounds/corazon.png");
 		corazones.setBounds(205, 590, 60, 60);
 
-		// Rectangulo
-		// formaJugador = new ShapeRenderer();
-		// formaEnemigo = new ShapeRenderer();
 
 		// Personajes
-		pj = new Jugador();
-//		pj2 = new Enemigo(1050);
+		
+		pj = pj.getJugador();//aplicacion singleton
+
 
 		for (int i = 0; i < cantidadEnemigos; i++) {
 			Personaje enemigo = new Enemigo(1000 + (i*200));
@@ -93,6 +91,17 @@ public class PantallaJuego implements Screen {
 			}
 			pj.getSprite().setX(pj.getSprite().getX() + 500 * Gdx.graphics.getDeltaTime());
 		}
+		
+		
+		//Limitar movimiento personaje (no salir de la pantalla)
+		
+		if(pj.getSprite().getX()<=0) {
+			pj.getSprite().setX(0);
+		}
+		if(pj.getSprite().getX()>=1146) {
+			pj.getSprite().setX(1146);
+		}
+		
 
 		// Crear bala
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {

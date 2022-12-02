@@ -2,12 +2,19 @@ package com.mygdx.darkside.personajes;
 
 import com.mygdx.darkside.utilidades.Imagen;
 
-public class Jugador extends Personaje{
+import colisiones.Colision;
+
+
+
+public class Jugador extends Personaje implements Colision{
 	
 	private Imagen spr = new Imagen("Personajes/dinoPipa.png");
 	private Imagen bullet = new Imagen("Balas/bala.png");
 	
-	public Jugador() {
+	private int posx;
+	private static Jugador jugador;
+	
+	private Jugador() {
 		this.nombre= "Juan";
 		this.vidaMax = 10;
 		this.vida = this.vidaMax;
@@ -18,6 +25,20 @@ public class Jugador extends Personaje{
 		
 		this.posx=(0);
 
+	}
+	
+	public synchronized static Jugador getJugador(){
+		if(jugador==null) {
+			jugador=new Jugador();
+		}
+		return jugador;
+	}
+	
+	public boolean comprobarColision(Personaje pj) {
+		if (sprite.getBoundingRectangle().overlaps(pj.getSprite().getArea())) { // Se destruyen ambos	
+			return true;
+		}
+		return false;
 	}
 
 }

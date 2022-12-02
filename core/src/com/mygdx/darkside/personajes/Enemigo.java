@@ -12,8 +12,15 @@ public class Enemigo extends Personaje{
 		this.vida = this.vidaMax;
 		this.ataque = 10;
 		spr.setBounds(x,100,220,150);
-		//x=1050; 
+
 		this.sprite=spr;
 	}
-
+	
+	
+	public boolean comprobarColision(Personaje enemigo) {
+		if (sprite.getBoundingRectangle().overlaps(enemigo.getSprite().getArea())) { // Se destruyen ambos	
+			return true;
+		}
+		return false;
+	}
 }

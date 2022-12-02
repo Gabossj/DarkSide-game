@@ -6,10 +6,11 @@ import com.mygdx.darkside.personajes.Personaje;
 import com.mygdx.darkside.utilidades.Imagen;
 import com.mygdx.darkside.utilidades.Recursos;
 
-public class Bala {
-	
-	//private static Bala bala;
-	
+import colisiones.Colision;
+
+
+public class Bala implements Colision{
+
 	
 	private float xSpeed;
 	private float ySpeed;
@@ -28,26 +29,6 @@ public class Bala {
 		if(!sentido) sprBala.rotarImagen();
 		this.direccionBala = sentido;
 	}
-	
-	/*
-	private Bala(float x, float y, boolean sentido) {
-		sprBala = new Imagen("Balas/bala.png");
-		this.xSpeed = 20;
-		this.ySpeed = 0;
-		sprBala.setSize(120, 30);
-		sprBala.setPosition(x, y);
-		if(!sentido) sprBala.rotarImagen(true);
-		this.direccionBala = sentido;
-	}
-	
-	public synchronized static Bala getBala(float x, float y, boolean sentido) {
-		if(bala==null) {
-			bala = new Bala(x,y,sentido);
-		}
-		
-		return bala;
-	}*/
-	
 	
 	
 
@@ -76,7 +57,7 @@ public class Bala {
 			}
 		}
 
-		// Bala a la izquierda
+
 
 	}
 
@@ -84,13 +65,13 @@ public class Bala {
 		sprBala.dibujarImagen();
 	}
 
-	public boolean comprobarColision(Personaje pj2) {
+	/*public boolean comprobarColision(Personaje pj2) {
 		if (sprBala.getBoundingRectangle().overlaps(pj2.getSprite().getArea())) { // Se destruyen ambos
 			this.destruido = true;
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	public boolean seDestruyo() {
 		return this.destruido;
@@ -99,5 +80,18 @@ public class Bala {
 	public Sound getSonidoBala() {
 		return sonidoBala;
 	}
+
+
+
+	@Override
+	public boolean comprobarColision(Personaje pj) {
+		if (sprBala.getBoundingRectangle().overlaps(pj.getSprite().getArea())) { // Se destruyen ambos
+			this.destruido = true;
+			return true;
+		}
+		return false;
+	}
+
+
 
 }
